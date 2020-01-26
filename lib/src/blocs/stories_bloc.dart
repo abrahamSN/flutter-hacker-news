@@ -11,8 +11,8 @@ class StoriesBloc {
   final _itemsFetcher = PublishSubject<int>();
 
   // getters to Stream
-  Observable<List<int>> get topIds => _topIds.stream;
-  Observable<Map<int, Future<ItemModel>>> get items => _itemsOutput.stream;
+  Stream<List<int>> get topIds => _topIds.stream;
+  Stream<Map<int, Future<ItemModel>>> get items => _itemsOutput.stream;
 
   // getters to Sink
   Function(int) get fetchItem => _itemsFetcher.sink.add;

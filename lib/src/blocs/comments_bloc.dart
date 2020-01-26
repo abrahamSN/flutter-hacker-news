@@ -10,7 +10,7 @@ class CommentsBloc {
   final _commentsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
 
   // Stream
-  Observable<Map<int, Future<ItemModel>>> get itemWithComments =>
+  Stream<Map<int, Future<ItemModel>>> get itemWithComments =>
       _commentsOutput.stream;
 
   // Sink

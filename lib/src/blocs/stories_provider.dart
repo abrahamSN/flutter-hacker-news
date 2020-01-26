@@ -17,8 +17,7 @@ class StoriesProvider extends InheritedWidget {
   }
 
   static StoriesBloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(StoriesProvider)
-            as StoriesProvider)
+    return (context.dependOnInheritedWidgetOfExactType<StoriesProvider>())
         .bloc;
   }
 }
