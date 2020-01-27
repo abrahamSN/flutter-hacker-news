@@ -38,14 +38,14 @@ void main() {
       url: "https://github.com/massung/r-cade/");
 
   test(
-    'should get news item',
+    'should get news item from repository',
     () async {
       // arrange
       when(mockNewsItemRepository.getNewsItem(any))
           .thenAnswer((_) async => Right(tNewsItem));
 
       // act
-      final res = await usecase.execute(id: tIdNews);
+      final res = await usecase(Params(id: tIdNews));
 
       // assert
       expect(res, Right(tNewsItem));
