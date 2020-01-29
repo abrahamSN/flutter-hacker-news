@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:news/core/errors/exception.dart';
 
 import 'package:news/core/errors/failure.dart';
 import 'package:news/core/platforms/network_info.dart';
@@ -22,14 +23,39 @@ class NewsItemRepositoryImpl implements NewsItemRepository {
   });
 
   @override
-  Future<Either<Failure, List<int>>> getListNews() {
+  Future<Either<Failure, List<int>>> getListNews() async {
     // TODO: implement getListNews
-    return null;
+    networkInfo.isConnected;
+
+    try {
+      final remoteData = await remoteDataSource.getListNews();
+
+      return Right(remoteData);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, NewsItem>> getNewsItem(int id) {
+  Future<Either<Failure, NewsItem>> getNewsItem(int id) async {
     // TODO: implement getNewsItem
-    return null;
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteData = await remoteDataSource.getNewsItem(id);
+        localDataSource.postNewsItem(remoteData);
+
+        return Right(remoteData);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final localData = await localDataSource.getNewsItem(id);
+
+        return Right(localData);
+      } on LocalException {
+        return Left(LocalFailure());
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:news/core/usecases/usecase.dart';
 import 'package:news/features/news/domain/entities/news_item.dart';
 
@@ -32,9 +33,9 @@ void main() {
       final res = await usecase(NoParams());
 
       // assert
-      expect(res, Right(tListNews));
       verify(mockListNewsRepository.getListNews());
       verifyNoMoreInteractions(mockListNewsRepository);
+      expect(res, Right(tListNews));
     },
   );
 }
