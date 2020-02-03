@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news/core/errors/exception.dart';
 import 'package:news/core/errors/failure.dart';
 
-import 'package:news/core/platforms/network_info.dart';
+import 'package:news/core/networks/network_info.dart';
 
 import 'package:news/features/news/data/datasources/news_item_local_data_source.dart';
 import 'package:news/features/news/data/datasources/news_item_remote_data_source.dart';
